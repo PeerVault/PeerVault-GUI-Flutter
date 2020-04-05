@@ -1,11 +1,34 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:window_utils/window_utils.dart';
+import 'package:window_utils/window_frame.dart';
+
 import 'package:peervault/ui/home.dart';
 import 'package:peervault/ui/owner/create_owner.dart';
 import 'package:peervault/ui/unlock.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({Key key}) : super(key: key);
+
+  @override
+  PeerVaultApp createState() => new PeerVaultApp();
+}
+
+class PeerVaultApp extends State<MyApp> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        WindowUtils.setSize(new Size(900, 640));
+        WindowUtils.centerWindow();
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,7 +57,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => Home(),
         '/unlock': (context) => Unlock(),
-        '/createOwner': (context) => CreateOwner(),
+        '/createOwner': (context) => WindowsFrame(
+            active: true,
+            child: CreateOwner()
+        ),
       },
     );
   }
