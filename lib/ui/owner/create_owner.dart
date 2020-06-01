@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:peervault/model/owner.dart';
+import 'package:peervault/service/api/owner.dart';
 
 enum UnlockCodeOptions {
   PasswordPolicyNone,
@@ -14,6 +16,9 @@ class CreateOwner extends StatefulWidget {
 
 class _CreateOwner extends State<CreateOwner> {
   UnlockCodeOptions _unlockCodeOption = UnlockCodeOptions.PasswordPolicyOnlyWhenExposure;
+  final nicknameController = TextEditingController();
+  final deviceController = TextEditingController();
+  final unlockController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +74,9 @@ class _CreateOwner extends State<CreateOwner> {
                     Expanded(
                       flex: 1,
                       child: Column(children: <Widget>[
-                        inputLine(context, "Owner name", false),
-                        inputLine(context, "Device name", false),
-                        inputLine(context, "Unlock Code", true),
+                        inputLine(context, "Owner name", false, nicknameController),
+                        inputLine(context, "Device name", false, deviceController),
+                        inputLine(context, "Unlock Code", true, unlockController),
                       ]),
                     ),
                     Expanded(
@@ -148,16 +153,35 @@ class _CreateOwner extends State<CreateOwner> {
                   color: Theme.of(context).primaryColor,
                   child: Text('Next'),
                   onPressed: () {
+                    var askPassword = 0;
+                    if (_unlockCodeOption == UnlockCodeOptions.PasswordPolicyNone) {
+                      askPassword = 0;
+                    }
+                    if (_unlockCodeOption == UnlockCodeOptions.PasswordPolicyAlwaysRequired) {
+                      askPassword = 1;
+                    }
+                    if (_unlockCodeOption == UnlockCodeOptions.PasswordPolicyOnlyWhenExposure) {
+                      askPassword = 2;
+                    }
+                    createOwner(Owner(
+                      Nickname: nicknameController.text,
+                      DeviceName: deviceController.text,
+                      UnlockCode: unlockController.text,
+                      AskPassword: askPassword,
+                    )).then((seed) {
+                      Navigator.pushNamed(context, '/owner_display_seed', arguments: seed);
+                    });
                   }
                 )
               ])),
         ]));
   }
 
-  Widget inputLine(context, label, obscureText) {
+  Widget inputLine(context, label, obscureText, controller) {
     return Container(
       width: 200,
       child: TextField(
+        controller: controller,
         obscureText: obscureText,
         cursorColor: Theme.of(context).accentColor,
         decoration: InputDecoration(

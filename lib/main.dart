@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:window_utils/window_utils.dart';
 import 'package:window_utils/window_frame.dart';
 
+import 'package:peervault/ui/splash.dart';
 import 'package:peervault/ui/home.dart';
 import 'package:peervault/ui/owner/create_owner.dart';
 import 'package:peervault/ui/unlock.dart';
@@ -53,14 +52,15 @@ class PeerVaultApp extends State<MyApp> {
         accentColor: Color(0xFF82E1B3),
         unselectedWidgetColor: Colors.white,
       ),
-      initialRoute: '/createOwner',
+      initialRoute: '/splash',
       routes: {
-        '/': (context) => Home(),
-        '/unlock': (context) => Unlock(),
-        '/createOwner': (context) => WindowsFrame(
-            active: true,
-            child: CreateOwner()
+        '/splash': (context) => WindowsFrame(
+          active: true,
+          child: Splash()
         ),
+        '/home': (context) => Home(),
+        '/unlock': (context) => Unlock(),
+        '/createOwner': (context) => CreateOwner(),
       },
     );
   }

@@ -14,12 +14,16 @@ description: Exchange securely secrets between peer using P2P
 version: 0.1.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  window_utils: any
+
+  window_utils: ^1.0.2
+  process_run: ^0.10.8
+  path_provider: ^1.6.5
+  http: ^0.12.1
 
 
   # The following adds the Cupertino Icons font to your application.
