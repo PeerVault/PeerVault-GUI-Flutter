@@ -169,7 +169,7 @@ class _CreateOwner extends State<CreateOwner> {
                       UnlockCode: unlockController.text,
                       AskPassword: askPassword,
                     )).then((seed) {
-                      Navigator.pushNamed(context, '/owner_display_seed', arguments: seed);
+                      Navigator.pushNamed(context, '/owner/display_seed', arguments: seed);
                     });
                   }
                 )

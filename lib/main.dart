@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peervault/ui/owner/display_seed.dart';
 import 'package:window_utils/window_utils.dart';
 import 'package:window_utils/window_frame.dart';
 
@@ -61,6 +62,7 @@ class PeerVaultApp extends State<MyApp> {
         '/home': (context) => Home(),
         '/unlock': (context) => Unlock(),
         '/createOwner': (context) => CreateOwner(),
+        '/owner/display_seed': (context) => DisplaySeed(),
       },
     );
   }

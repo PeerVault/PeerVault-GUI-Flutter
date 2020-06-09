@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:peervault/model/owner.dart';
 
 class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Owner owner = ModalRoute.of(context).settings.arguments;
+
+    if (owner != null) {
+      print(owner.toJson());
+    }
+
     return new Scaffold(
       body: Center(
         child: Column(
